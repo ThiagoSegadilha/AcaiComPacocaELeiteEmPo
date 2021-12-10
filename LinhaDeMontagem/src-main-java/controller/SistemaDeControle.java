@@ -1,5 +1,7 @@
 package controller;
 
+import model.Montagem;
+
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.List;
 public class SistemaDeControle {
 
     private static ArrayList<String> listaDeEtapas;
+    private static List<Montagem> listaDeMontagem;
 
     public static void tratarDadosDoArquivo(String caminhoArquivo) throws Exception {
         listaDeEtapas = new ArrayList<String>();
@@ -20,17 +23,14 @@ public class SistemaDeControle {
 
         String frase = buffer.readLine();
 
-        System.out.println("Teste");
-        System.out.println(frase);
-
         while (frase != null) {
             listaDeEtapas.add(frase);
             frase = buffer.readLine();
-            System.out.println(frase);
         }
-        System.out.println(listaDeEtapas);
 
         dadosDoAquivo.close();
+
+        criaLinhaDeMontagem(listaDeEtapas);
 
     }
 
@@ -42,5 +42,20 @@ public class SistemaDeControle {
         }
     }
 
+    private static void criaLinhaDeMontagem(ArrayList<String> listaDeEtapas) {
+        listaDeMontagem = new ArrayList<Montagem>();
+
+        String manutencao = "maintenance";
+
+        for (String etapa : listaDeEtapas) {
+            int espacoEntreEtapaEHora = etapa.lastIndexOf(" ");
+
+            String nome = etapa.substring(0, espacoEntreEtapaEHora);
+            String tempo = etapa.substring(espacoEntreEtapaEHora +1);
+
+            System.out.println("Teste " + nome + " " + tempo);
+        }
+
+    }
 
 }
