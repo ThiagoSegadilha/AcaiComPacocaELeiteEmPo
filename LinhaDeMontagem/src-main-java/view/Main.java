@@ -14,13 +14,24 @@ public class Main {
         System.out.println("Digite o nome do Arquivo .txt com os dados do teste: ");
         nome = dadosDoTeclado.next();
 
-        checaArquivo(nome);
+        if (!nome.contains(".txt")) {
+            nome += ".txt";
+        }
+
+        try {
+            checaArquivo(nome);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void checaArquivo(String nomeArquivo) {
+    public static void checaArquivo(String nomeArquivo) throws Exception {
 
-        boolean checaArquivo = false;
         String caminhoArquivo = "LinhaDeMontagem/Arquivos/" + nomeArquivo;
+
+        if (!new File(caminhoArquivo).exists()) {
+            throw new Exception("O sistema não pode encontrar o arquivo especificado.");
+        }
 
         executaArquivo(caminhoArquivo);
     }
@@ -32,12 +43,7 @@ public class Main {
             DataInputStream dadosDoAquivo = new DataInputStream(lerArquivo);
             BufferedReader buffer = new BufferedReader(new InputStreamReader(dadosDoAquivo));
 
-
-            int verificaConteudoDoArquivo = buffer.read();
-            if (verificaConteudoDoArquivo == -1) {
-                buffer.close();
-                throw new Exception("O arquivo está vazio.");
-            }
+            checaConteudoDoArquivo(buffer);
 
             String frase = buffer.readLine();
 
@@ -45,6 +51,14 @@ public class Main {
             System.out.println("Teste");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void checaConteudoDoArquivo(BufferedReader buffer) throws Exception {
+        int verificaConteudoDoArquivo = buffer.read();
+        if (verificaConteudoDoArquivo == -1) {
+            buffer.close();
+            throw new Exception("O arquivo está vazio.");
         }
     }
 }
