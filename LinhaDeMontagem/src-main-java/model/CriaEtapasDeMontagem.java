@@ -7,10 +7,9 @@ public class CriaEtapasDeMontagem {
 
     private static List<EtapaDeMontagem> listaDeEtapaDeMontagem;
 
-    public static void criaLinhaDeMontagem(ArrayList<String> listaDeEtapas) {
+    public static List<EtapaDeMontagem> criaLinhaDeMontagem(List<String> listaDeEtapas) {
         listaDeEtapaDeMontagem = new ArrayList<EtapaDeMontagem>();
         int tempo = 0;
-        int cont = 0;
 
         String manutencao = "maintenance";
         String min = "min";
@@ -31,11 +30,8 @@ public class CriaEtapasDeMontagem {
             }
 
             listaDeEtapaDeMontagem.add(new EtapaDeMontagem(etapa, nome, tempo));
-
-            System.out.println(listaDeEtapaDeMontagem.get(cont).getNome() + " " + listaDeEtapaDeMontagem.get(cont).getTempoDeDuracao());
-            cont++;
-
         }
 
+        return listaDeEtapaDeMontagem;
     }
 }

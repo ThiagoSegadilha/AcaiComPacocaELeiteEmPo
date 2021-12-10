@@ -1,6 +1,6 @@
 package model;
 
-public class EtapaDeMontagem {
+public class EtapaDeMontagem implements Comparable<Object>{
     String titulo, nome, tempoPrevisto;
     int tempoDeDuracao;
     boolean previsao = false;
@@ -49,5 +49,16 @@ public class EtapaDeMontagem {
 
     public void setPrevisao(boolean previsao) {
         this.previsao = previsao;
+    }
+
+    @Override // Ordenação por tempo de duração de cada etapa
+    public int compareTo(Object obj) {
+        EtapaDeMontagem etapaDeMontagem = (EtapaDeMontagem) obj;
+        if (this.tempoDeDuracao > etapaDeMontagem.tempoDeDuracao)
+            return -1;
+        else if (this.tempoDeDuracao < etapaDeMontagem.tempoDeDuracao)
+            return 1;
+        else
+            return 0;
     }
 }
