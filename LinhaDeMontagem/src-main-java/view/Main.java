@@ -1,5 +1,7 @@
 package view;
 
+import controller.SistemaDeControle;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -39,26 +41,9 @@ public class Main {
     private static void executaArquivo(String caminhoArquivo) {
 
         try {
-            FileInputStream lerArquivo = new FileInputStream(caminhoArquivo);
-            DataInputStream dadosDoAquivo = new DataInputStream(lerArquivo);
-            BufferedReader buffer = new BufferedReader(new InputStreamReader(dadosDoAquivo));
-
-            checaConteudoDoArquivo(buffer);
-
-            String frase = buffer.readLine();
-
-            System.out.println(frase);
-            System.out.println("Teste");
+            SistemaDeControle.tratarDadosDoArquivo(caminhoArquivo);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    private static void checaConteudoDoArquivo(BufferedReader buffer) throws Exception {
-        int verificaConteudoDoArquivo = buffer.read();
-        if (verificaConteudoDoArquivo == -1) {
-            buffer.close();
-            throw new Exception("O arquivo está vazio.");
         }
     }
 }
