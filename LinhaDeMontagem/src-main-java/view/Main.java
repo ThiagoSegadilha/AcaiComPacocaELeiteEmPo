@@ -29,19 +29,18 @@ public class Main {
 
     public static void checaArquivo(String nomeArquivo) throws Exception {
 
-        String caminhoArquivo = "LinhaDeMontagem/Arquivos/" + nomeArquivo;
+        String caminhoArquivo = "LinhaDeMontagem/arquivos/" + nomeArquivo;
 
         if (!new File(caminhoArquivo).exists()) {
             throw new Exception("O sistema não pode encontrar o arquivo especificado.");
         }
-
         executaArquivo(caminhoArquivo);
     }
 
     private static void executaArquivo(String caminhoArquivo) {
-
+        SistemaDeControle sistemaDeControle = new SistemaDeControle();
         try {
-            SistemaDeControle.tratarDadosDoArquivo(caminhoArquivo);
+            sistemaDeControle.tratarDadosDoArquivo(caminhoArquivo);
         } catch (Exception e) {
             e.printStackTrace();
         }

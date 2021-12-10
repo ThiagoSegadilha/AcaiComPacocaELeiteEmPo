@@ -1,11 +1,11 @@
 package model;
 
-public class Montagem {
+public class EtapaDeMontagem {
     String titulo, nome, tempoPrevisto;
     int tempoDeDuracao;
     boolean previsao = false;
 
-    public Montagem(String titulo, String nome, int tempo) {
+    public EtapaDeMontagem(String titulo, String nome, int tempo) {
         this.titulo = titulo;
         this.nome =nome;
         this.tempoDeDuracao = tempo;
