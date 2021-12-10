@@ -44,16 +44,36 @@ public class SistemaDeControle {
 
     private static void criaLinhaDeMontagem(ArrayList<String> listaDeEtapas) {
         listaDeMontagem = new ArrayList<Montagem>();
+        int tempo = 0;
+        int cont = 0;
 
         String manutencao = "maintenance";
+        String min = "min";
 
         for (String etapa : listaDeEtapas) {
             int espacoEntreEtapaEHora = etapa.lastIndexOf(" ");
 
             String nome = etapa.substring(0, espacoEntreEtapaEHora);
-            String tempo = etapa.substring(espacoEntreEtapaEHora +1);
+            String tempoDeDuracao = etapa.substring(espacoEntreEtapaEHora + 1);
 
-            System.out.println("Teste " + nome + " " + tempo);
+            System.out.println("Teste " + nome + " " + tempoDeDuracao);
+
+            if (tempoDeDuracao.endsWith(min)) {
+                tempo = Integer.parseInt(tempoDeDuracao.substring(0, tempoDeDuracao.indexOf(min)));
+                System.out.println(tempo);
+            } else if (tempoDeDuracao.endsWith(manutencao)) {
+                String tempoDeManutencao = tempoDeDuracao.substring(0, tempoDeDuracao.indexOf(manutencao));
+                if ("".equals(tempoDeManutencao)) {
+                    tempo = 5;
+                }
+            }
+            System.out.println(tempo);
+
+            listaDeMontagem.add(new Montagem(etapa, nome, tempo));
+
+            System.out.println(listaDeMontagem.get(cont).getNome() + " " + listaDeMontagem.get(cont).getTempoPrevisto());
+            cont++;
+
         }
 
     }
