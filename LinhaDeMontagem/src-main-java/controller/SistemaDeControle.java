@@ -56,22 +56,18 @@ public class SistemaDeControle {
             String nome = etapa.substring(0, espacoEntreEtapaEHora);
             String tempoDeDuracao = etapa.substring(espacoEntreEtapaEHora + 1);
 
-            System.out.println("Teste " + nome + " " + tempoDeDuracao);
-
             if (tempoDeDuracao.endsWith(min)) {
                 tempo = Integer.parseInt(tempoDeDuracao.substring(0, tempoDeDuracao.indexOf(min)));
-                System.out.println(tempo);
             } else if (tempoDeDuracao.endsWith(manutencao)) {
                 String tempoDeManutencao = tempoDeDuracao.substring(0, tempoDeDuracao.indexOf(manutencao));
                 if ("".equals(tempoDeManutencao)) {
                     tempo = 5;
                 }
             }
-            System.out.println(tempo);
 
             listaDeMontagem.add(new Montagem(etapa, nome, tempo));
 
-            System.out.println(listaDeMontagem.get(cont).getNome() + " " + listaDeMontagem.get(cont).getTempoPrevisto());
+            System.out.println(listaDeMontagem.get(cont).getNome() + " " + listaDeMontagem.get(cont).getTempoDeDuracao());
             cont++;
 
         }
