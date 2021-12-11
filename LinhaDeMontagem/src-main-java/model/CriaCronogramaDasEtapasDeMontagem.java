@@ -11,8 +11,8 @@ public class CriaCronogramaDasEtapasDeMontagem {
     private int numeroDaLinhaDeMontagem;
     private String horaFormatada;
 
-    public void criaCronogramaDasEtapasDeMontagem(List<List<EtapaDeMontagem>> combinacaoDeEtapasPorTurnoManha, List<List<EtapaDeMontagem>> listaDeCombinacoesDasEtapasDeMontagem) {
-        int totalDeCombinacoes = listaDeCombinacoesDasEtapasDeMontagem.size();
+    public void criaCronogramaDasEtapasDeMontagem(List<List<EtapaDeMontagem>> combinacaoDeEtapasPorTurnoManha, List<List<EtapaDeMontagem>> combinacaoDeEtapasPorTurnoTarde) {
+        int totalDeCombinacoes = combinacaoDeEtapasPorTurnoManha.size();
         int TEMPO_DE_ALMOCO = 60;
 
         for (int i = 0; i < totalDeCombinacoes; i++) {
@@ -31,7 +31,7 @@ public class CriaCronogramaDasEtapasDeMontagem {
 
             System.out.println("Linha de montagem " + numeroDaLinhaDeMontagem + ":");
 
-            List<EtapaDeMontagem> mornSessionConversationList = listaDeCombinacoesDasEtapasDeMontagem.get(i);
+            List<EtapaDeMontagem> mornSessionConversationList = combinacaoDeEtapasPorTurnoManha.get(i);
             for (EtapaDeMontagem etapaDeMontagem : mornSessionConversationList) {
                 etapaDeMontagem.setTempoPrevisto(horaFormatada);
                 System.out.println(horaFormatada + etapaDeMontagem.getTitulo());
@@ -46,7 +46,7 @@ public class CriaCronogramaDasEtapasDeMontagem {
             System.out.println(horaFormatada + "Almoço");
 
             horaFormatada = getHoradaProximaEtapaDeMontagem(data, TEMPO_DE_ALMOCO);
-            List<EtapaDeMontagem> eveSessionConversationList = listaDeCombinacoesDasEtapasDeMontagem.get(i);
+            List<EtapaDeMontagem> eveSessionConversationList = combinacaoDeEtapasPorTurnoTarde.get(i);
             for (EtapaDeMontagem etapaDeMontagem : eveSessionConversationList) {
                 etapaDeMontagem.setTempoPrevisto(horaFormatada);
                 listaDeEtapas.add(etapaDeMontagem);
