@@ -2,24 +2,23 @@ package controller;
 
 import model.*;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class SistemaDeControle {
 
-    private ListaDeEtapas listaDeEtapas;
+    private CriaListaComOsDadosDoArquivo criaListaComOsDadosDoArquivo;
     private CriaCombinacoesDeEtapasDeMontagem criaCombinacoesDeEtapasDeMontagem;
 
 
     public SistemaDeControle() {
-        listaDeEtapas = new ListaDeEtapas();
+        criaListaComOsDadosDoArquivo = new CriaListaComOsDadosDoArquivo();
         criaCombinacoesDeEtapasDeMontagem = new CriaCombinacoesDeEtapasDeMontagem();
 //        criaCronogramaDasEtapasDeMontagem = new CriaCronogramaDasEtapasDeMontagem();
     }
 
     public void tratarDadosDoArquivo(String caminhoArquivo) throws Exception {
 
-        List<String> listaDeEtapasDeMontagem = listaDeEtapas.criaListaDeEtapas(caminhoArquivo);
+        List<String> listaDeEtapasDeMontagem = criaListaComOsDadosDoArquivo.criaListaDeEtapas(caminhoArquivo);
         List<EtapaDeMontagem> etapasDeMontagemLista = CriaListaDeEtapasDeMontagem.criaLinhaDeMontagem(listaDeEtapasDeMontagem);
 
         criaCombinacoesDeEtapasDeMontagem.cronogramaDeMontagem(etapasDeMontagemLista);

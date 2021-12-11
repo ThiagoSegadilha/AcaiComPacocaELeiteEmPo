@@ -1,8 +1,9 @@
 package model;
 
+import common.DataEHoraHelper;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,11 @@ public class CriaCronogramaDasEtapasDeMontagem {
 
     private int numeroDaLinhaDeMontagem;
     private String horaFormatada;
+    private DataEHoraHelper dataEHoraHelper;
+
+    public CriaCronogramaDasEtapasDeMontagem() {
+        dataEHoraHelper = new DataEHoraHelper();
+    }
 
     public void criaCronogramaDasEtapasDeMontagem(List<List<EtapaDeMontagem>> combinacaoDeEtapasPorTurnoManha, List<List<EtapaDeMontagem>> combinacaoDeEtapasPorTurnoTarde) {
         int totalDeCombinacoes = combinacaoDeEtapasPorTurnoManha.size();
@@ -19,15 +25,10 @@ public class CriaCronogramaDasEtapasDeMontagem {
             List<EtapaDeMontagem> listaDeEtapas = new ArrayList<EtapaDeMontagem>();
 
 
-            Calendar date = Calendar.getInstance();
-            date.set(Calendar.HOUR_OF_DAY, 9);
-            date.set(Calendar.MINUTE, 0);
-            date.set(Calendar.SECOND, 0);
-
-            Date data = date.getTime();
+            Date data = dataEHoraHelper.getDataInicial(9, 0, 0);
 
             numeroDaLinhaDeMontagem = i + 1;
-            horaFormatada = formatarHora(data);
+            horaFormatada = dataEHoraHelper.formatarHora(data);
 
             System.out.println("Linha de montagem " + numeroDaLinhaDeMontagem + ":");
 
@@ -69,14 +70,6 @@ public class CriaCronogramaDasEtapasDeMontagem {
         long newTimeInLong = tempoDaEtapa + timeDurationInLong;
 
         data.setTime(newTimeInLong);
-        return getFormatoDeHoraSimples().format(data);
-    }
-
-    private SimpleDateFormat getFormatoDeHoraSimples() {
-        return new SimpleDateFormat("HH:mm ");
-    }
-
-    private String formatarHora(Date date) {
-        return getFormatoDeHoraSimples().format(date);
+        return dataEHoraHelper.getFormatoDeHoraSimples().format(data);
     }
 }

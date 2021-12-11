@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class ListaDeEtapas {
+public class CriaListaComOsDadosDoArquivo {
     private ArrayList<String> listaDeEtapas;
 
     public ArrayList<String> criaListaDeEtapas(String caminhoArquivo) {
