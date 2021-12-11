@@ -10,6 +10,7 @@ import java.util.List;
 
 public class SistemaDeControle {
 
+    private List<List<EtapaDeMontagem>> combinacaoDeEtapasTurnoManha;
     private ListaDeEtapas listaDeEtapas;
 
     public SistemaDeControle() {
@@ -37,7 +38,14 @@ public class SistemaDeControle {
             System.out.println(etapa.getNome() + " " + etapa.getTempoDeDuracao());
         }
 
-        combinacoesTurnoManha(etapasDeMontagemLista, tempoTotalPorDia);
+        combinacaoDeEtapasTurnoManha = combinacoesTurnoManha(etapasDeMontagemLista, tempoTotalPorDia);
+
+        removeEtapasDaListaDeMontagem(combinacaoDeEtapasTurnoManha, etapasDeMontagemLista);
+
+        for (EtapaDeMontagem etapaDeMontagemAtual : etapasDeMontagemLista) {
+                System.out.println("\nTeste 2");
+                System.out.println(etapaDeMontagemAtual.getNome() + " " + etapaDeMontagemAtual.getTempoDeDuracao());
+        }
     }
 
     public static int getTempoTotalDasEtapas(List<EtapaDeMontagem> etapasDeMontagemLista) {
@@ -52,7 +60,7 @@ public class SistemaDeControle {
         return tempoTotal;
     }
 
-    public void combinacoesTurnoManha(List<EtapaDeMontagem> etapasDeMontagemLista, int tempoTotalPorDia) {
+    public List<List<EtapaDeMontagem>> combinacoesTurnoManha(List<EtapaDeMontagem> etapasDeMontagemLista, int tempoTotalPorDia) {
         int TEMPO_TURNO_MANHA = 180;
         int numeroDeEtapas = etapasDeMontagemLista.size();
         List<List<EtapaDeMontagem>> combinacaoDeEtapas = new ArrayList<List<EtapaDeMontagem>>();
@@ -83,7 +91,6 @@ public class SistemaDeControle {
                 tempoTotal += tempoDaEtapaAtual;
 
                 if (tempoTotal >= TEMPO_TURNO_MANHA) {
-                    System.out.println("Testando para ver se esta chegando aqui");
                     break;
                 }
             }
@@ -93,8 +100,6 @@ public class SistemaDeControle {
                 combinacaoDeEtapas.add(listaDeCombinacoes);
                 for (EtapaDeMontagem etapaDeMontagemAtual : listaDeCombinacoes) {
                     etapaDeMontagemAtual.setCombinacaoDeEtapas(true);
-                    System.out.println("\nTeste ");
-                    System.out.println(etapaDeMontagemAtual.getNome() + " " + etapaDeMontagemAtual.getTempoDeDuracao());
                 }
                 numeroDePossiveisCombinacoes++;
                 if (numeroDePossiveisCombinacoes == tempoTotalPorDia) {
@@ -102,6 +107,18 @@ public class SistemaDeControle {
                 }
             }
         }
+        for (List<EtapaDeMontagem> etapaDeMontagemAtual : combinacaoDeEtapas) {
+            for (EtapaDeMontagem etapaAtual : etapaDeMontagemAtual) {
+                System.out.println("\nTeste ");
+                System.out.println(etapaAtual.getNome() + " " + etapaAtual.getTempoDeDuracao());
+            }
+        }
+        return combinacaoDeEtapas;
+    }
 
+    private void removeEtapasDaListaDeMontagem(List<List<EtapaDeMontagem>> combinacaoDeEtapasTurnoManha, List<EtapaDeMontagem> etapasDeMontagemLista) {
+        for (List<EtapaDeMontagem> etapaDeMontagem : combinacaoDeEtapasTurnoManha) {
+            etapasDeMontagemLista.removeAll(etapaDeMontagem);
+        }
     }
 }
