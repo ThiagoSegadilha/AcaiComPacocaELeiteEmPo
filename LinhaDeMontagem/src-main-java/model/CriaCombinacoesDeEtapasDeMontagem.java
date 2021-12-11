@@ -26,11 +26,11 @@ public class CriaCombinacoesDeEtapasDeMontagem {
         // Necessario implementar o Comparable<Object> na classe EtapaDeMontagem para realizar a ordenação
         Collections.sort(etapasDeMontagemLista);
 
-        combinacaoDeEtapasPorTurnoManha = combinacoesPorTurno(etapasDeMontagemLista, tempoTotalPorDia, TEMPO_TURNO_MANHA);
+        combinacaoDeEtapasPorTurnoManha = combinacoesPorTurno(etapasDeMontagemLista, tempoTotalPorDia, TEMPO_TURNO_MANHA, true);
 
         removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurnoManha, etapasDeMontagemLista);
 
-        combinacaoDeEtapasPorTurnoTarde = combinacoesPorTurno(etapasDeMontagemLista, tempoTotalPorDia, TEMPO_TURNO_TARDE);
+        combinacaoDeEtapasPorTurnoTarde = combinacoesPorTurno(etapasDeMontagemLista, tempoTotalPorDia, TEMPO_TURNO_TARDE, false);
 
         removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurnoTarde, etapasDeMontagemLista);
 
@@ -64,7 +64,7 @@ public class CriaCombinacoesDeEtapasDeMontagem {
         return tempoTotal;
     }
 
-    public List<List<EtapaDeMontagem>> combinacoesPorTurno(List<EtapaDeMontagem> etapasDeMontagemLista, int TEMPO_TOTAL_DO_DIA, int TEMPO_DO_TURNO) {
+    public List<List<EtapaDeMontagem>> combinacoesPorTurno(List<EtapaDeMontagem> etapasDeMontagemLista, int TEMPO_TOTAL_DO_DIA, int TEMPO_DO_TURNO, boolean isManha) {
 
         int numeroDeEtapas = etapasDeMontagemLista.size();
         List<List<EtapaDeMontagem>> combinacaoDeEtapas = new ArrayList<List<EtapaDeMontagem>>();
@@ -78,7 +78,12 @@ public class CriaCombinacoesDeEtapasDeMontagem {
 
             tempoTotal = getTempoTotalDaCominacaoPorTurno(etapasDeMontagemLista, TEMPO_DO_TURNO, numeroDeEtapas, auxiliar, tempoTotal, listaDeCombinacoes);
 
-            combinacaoValida = tempoTotal <= TEMPO_DO_TURNO;
+            if (isManha) {
+                combinacaoValida = tempoTotal == TEMPO_DO_TURNO;
+            } else {
+                combinacaoValida = tempoTotal <= TEMPO_DO_TURNO;
+            }
+
             if (combinacaoValida) {
                 combinacaoDeEtapas.add(listaDeCombinacoes);
                 for (EtapaDeMontagem etapaDeMontagemAtual : listaDeCombinacoes) {
