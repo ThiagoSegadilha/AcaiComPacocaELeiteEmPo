@@ -27,29 +27,12 @@ public class CriaCombinacoesDeEtapasDeMontagem {
         Collections.sort(etapasDeMontagemLista);
 
         combinacaoDeEtapasPorTurnoManha = combinacoesPorTurno(etapasDeMontagemLista, tempoTotalPorDia, TEMPO_TURNO_MANHA, true);
-
         removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurnoManha, etapasDeMontagemLista);
 
         combinacaoDeEtapasPorTurnoTarde = combinacoesPorTurno(etapasDeMontagemLista, tempoTotalPorDia, TEMPO_TURNO_TARDE, false);
-
         removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurnoTarde, etapasDeMontagemLista);
 
-        for (List<EtapaDeMontagem> etapas : combinacaoDeEtapasPorTurnoManha) {
-            for (EtapaDeMontagem etapa : etapas) {
-                System.out.println(etapa.getNome() + " " + etapa.getTempoDeDuracao());
-            }
-        }
-        System.out.println("\n");
-
-        for (List<EtapaDeMontagem> etapas : combinacaoDeEtapasPorTurnoTarde) {
-            for (EtapaDeMontagem etapa : etapas) {
-                System.out.println(etapa.getNome() + " " + etapa.getTempoDeDuracao());
-            }
-        }
-        System.out.println("\n");
-
         criaCronogramaDasEtapasDeMontagem.criaCronogramaDasEtapasDeMontagem(combinacaoDeEtapasPorTurnoManha, combinacaoDeEtapasPorTurnoTarde);
-//        return combinacaoDeEtapasPorTurno;
     }
 
     public static int getTempoTotalDasEtapas(List<EtapaDeMontagem> etapasDeMontagemLista) {

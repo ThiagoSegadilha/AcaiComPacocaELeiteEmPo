@@ -9,19 +9,19 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner dadosDoTeclado = new Scanner(System.in);
-        String nome;
+        String nomeArquivo;
 
         System.out.println("Confira se Arquivo de input esta na pasta Arquivos \n");
 
         System.out.println("Digite o nome do Arquivo .txt com os dados do teste: ");
-        nome = dadosDoTeclado.next();
+        nomeArquivo = dadosDoTeclado.next();
 
-        if (!nome.contains(".txt")) {
-            nome += ".txt";
+        if (!nomeArquivo.contains(".txt")) {
+            nomeArquivo += ".txt";
         }
 
         try {
-            checaArquivo(nome);
+            checaArquivo(nomeArquivo);
         } catch (Exception e) {
             e.printStackTrace();
         }

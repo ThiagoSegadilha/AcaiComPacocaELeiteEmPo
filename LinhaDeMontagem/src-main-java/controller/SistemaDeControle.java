@@ -13,7 +13,6 @@ public class SistemaDeControle {
     public SistemaDeControle() {
         criaListaComOsDadosDoArquivo = new CriaListaComOsDadosDoArquivo();
         criaCombinacoesDeEtapasDeMontagem = new CriaCombinacoesDeEtapasDeMontagem();
-//        criaCronogramaDasEtapasDeMontagem = new CriaCronogramaDasEtapasDeMontagem();
     }
 
     public void tratarDadosDoArquivo(String caminhoArquivo) throws Exception {
