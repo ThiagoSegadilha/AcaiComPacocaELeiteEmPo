@@ -15,16 +15,8 @@ public class EtapaDeMontagem implements Comparable<Object>{
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
     public String getNome() {
         return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getTempoPrevisto() {
@@ -39,13 +31,7 @@ public class EtapaDeMontagem implements Comparable<Object>{
         return tempoDeDuracao;
     }
 
-    public void setTempoDeDuracao(int tempoDeDuracao) {
-        this.tempoDeDuracao = tempoDeDuracao;
-    }
-
-    public boolean isPrevisao() {
-        return previsao;
-    }
+    public boolean isPrevisao() { return previsao; }
 
     public void setPrevisao(boolean previsao) {
         this.previsao = previsao;

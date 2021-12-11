@@ -25,11 +25,11 @@ public class SistemaDeControle {
         cronogramaDeMontagem(etapasDeMontagemLista);
 
     }
-    
+
     public void cronogramaDeMontagem(List<EtapaDeMontagem> etapasDeMontagemLista) {
-        int tempoTotalDoDia = 360;
+        int TEMPO_TOTAL_DO_DIA = 360;
         int tempoTotalDasEtapas = getTempoTotalDasEtapas(etapasDeMontagemLista);
-        int tempoTotalPorDia = tempoTotalDasEtapas/tempoTotalDoDia;
+        int tempoTotalPorDia = tempoTotalDasEtapas / TEMPO_TOTAL_DO_DIA;
 
         // Necessario implementar o Comparable<Object> na classe EtapaDeMontagem para realizar a ordenação
         Collections.sort(etapasDeMontagemLista);
@@ -37,6 +37,8 @@ public class SistemaDeControle {
         for (EtapaDeMontagem etapa : etapasDeMontagemLista) {
             System.out.println(etapa.getNome() + " " + etapa.getTempoDeDuracao());
         }
+
+        combinacoesTurnoManha(etapasDeMontagemLista, tempoTotalPorDia);
     }
 
     public static int getTempoTotalDasEtapas(List<EtapaDeMontagem> etapasDeMontagemLista) {
@@ -49,5 +51,47 @@ public class SistemaDeControle {
             tempoTotal += etapa.getTempoDeDuracao();
         }
         return tempoTotal;
+    }
+
+    public void combinacoesTurnoManha(List<EtapaDeMontagem> etapasDeMontagemLista, int tempoTotalPorDia) {
+        int TEMPO_TURNO_MANHA = 180;
+        int numeroDeEtapas = etapasDeMontagemLista.size();
+        List<List<EtapaDeMontagem>> combinacaoDeEtapas = new ArrayList<List<EtapaDeMontagem>>();
+        int numeroDePossiveisCombinacoes = 0;
+
+        for (int i = 0; i < numeroDeEtapas; i++) {
+            int auxiliar = i;
+            int tempoTotal = 0;
+            List<EtapaDeMontagem> listaDeCombinacoes = new ArrayList<EtapaDeMontagem>();
+
+            while (auxiliar != numeroDeEtapas) {
+                int contAuxiliar = auxiliar;
+                auxiliar++;
+
+                EtapaDeMontagem estapaDeMontagemAutal = etapasDeMontagemLista.get(contAuxiliar);
+                int tempoDaEtapaAtual = estapaDeMontagemAutal.getTempoDeDuracao();
+
+                if (tempoDaEtapaAtual + tempoTotal > TEMPO_TURNO_MANHA) {
+                    continue;
+                }
+
+                listaDeCombinacoes.add(estapaDeMontagemAutal);
+                tempoTotal += tempoDaEtapaAtual;
+
+                if (tempoTotal == TEMPO_TURNO_MANHA) {
+                    break;
+                } else if (tempoTotal >= TEMPO_TURNO_MANHA) {
+                    break;
+                }
+
+            }
+
+            for (int j = 0; j < listaDeCombinacoes.size(); j++) {
+                System.out.println("\nTeste " + j);
+                System.out.println(listaDeCombinacoes.get(j).getNome() + listaDeCombinacoes.get(j).getTempoDeDuracao());
+            }
+
+        }
+
     }
 }
