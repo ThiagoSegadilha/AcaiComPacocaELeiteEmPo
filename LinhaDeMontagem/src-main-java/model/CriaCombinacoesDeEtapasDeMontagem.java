@@ -54,28 +54,7 @@ public class CriaCombinacoesDeEtapasDeMontagem {
             List<EtapaDeMontagem> listaDeCombinacoes = new ArrayList<EtapaDeMontagem>();
             boolean combinacaoValida = false;
 
-            while (auxiliar != numeroDeEtapas) {
-                int contAuxiliar = auxiliar;
-                auxiliar++;
-
-                EtapaDeMontagem estapaDeMontagemAutal = etapasDeMontagemLista.get(contAuxiliar);
-
-                if (estapaDeMontagemAutal.isEtapaCombinada()) {
-                    continue;
-                }
-
-                int tempoDaEtapaAtual = estapaDeMontagemAutal.getTempoDeDuracao();
-                if (tempoDaEtapaAtual + tempoTotal > TEMPO_TURNO_MANHA) {
-                    continue;
-                }
-
-                listaDeCombinacoes.add(estapaDeMontagemAutal);
-                tempoTotal += tempoDaEtapaAtual;
-
-                if (tempoTotal >= TEMPO_TURNO_MANHA) {
-                    break;
-                }
-            }
+            tempoTotal = getTempoTotalDaCominacaoTurnoManha(etapasDeMontagemLista, TEMPO_TURNO_MANHA, numeroDeEtapas, auxiliar, tempoTotal, listaDeCombinacoes);
 
             combinacaoValida = tempoTotal == TEMPO_TURNO_MANHA;
             if (combinacaoValida) {
@@ -96,6 +75,32 @@ public class CriaCombinacoesDeEtapasDeMontagem {
             }
         }
         return combinacaoDeEtapas;
+    }
+
+    private int getTempoTotalDaCominacaoTurnoManha(List<EtapaDeMontagem> etapasDeMontagemLista, int TEMPO_TURNO_MANHA, int numeroDeEtapas, int auxiliar, int tempoTotal, List<EtapaDeMontagem> listaDeCombinacoes) {
+        while (auxiliar != numeroDeEtapas) {
+            int contAuxiliar = auxiliar;
+            auxiliar++;
+
+            EtapaDeMontagem estapaDeMontagemAutal = etapasDeMontagemLista.get(contAuxiliar);
+
+            if (estapaDeMontagemAutal.isEtapaCombinada()) {
+                continue;
+            }
+
+            int tempoDaEtapaAtual = estapaDeMontagemAutal.getTempoDeDuracao();
+            if (tempoDaEtapaAtual + tempoTotal > TEMPO_TURNO_MANHA) {
+                continue;
+            }
+
+            listaDeCombinacoes.add(estapaDeMontagemAutal);
+            tempoTotal += tempoDaEtapaAtual;
+
+            if (tempoTotal >= TEMPO_TURNO_MANHA) {
+                break;
+            }
+        }
+        return tempoTotal;
     }
 
     private void removeEtapasDaListaDeMontagem(List<List<EtapaDeMontagem>> combinacaoDeEtapasTurnoManha, List<EtapaDeMontagem> etapasDeMontagemLista) {
