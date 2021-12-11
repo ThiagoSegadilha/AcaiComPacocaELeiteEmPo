@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CriaEtapasDeMontagem {
+public class CriaListaDeEtapasDeMontagem {
 
     private static List<EtapaDeMontagem> listaDeEtapaDeMontagem;
 
