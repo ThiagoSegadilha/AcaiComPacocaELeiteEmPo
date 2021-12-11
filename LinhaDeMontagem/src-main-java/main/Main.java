@@ -1,4 +1,4 @@
-package view;
+package main;
 
 import controller.SistemaDeControle;
 
@@ -32,7 +32,7 @@ public class Main {
         String caminhoArquivo = "LinhaDeMontagem/arquivos/" + nomeArquivo;
 
         if (!new File(caminhoArquivo).exists()) {
-            throw new Exception("O sistema não pode encontrar o arquivo especificado.");
+            throw new FileNotFoundException("O sistema não pode encontrar o arquivo especificado.");
         }
         executaArquivo(caminhoArquivo);
     }
@@ -43,6 +43,8 @@ public class Main {
             sistemaDeControle.tratarDadosDoArquivo(caminhoArquivo);
         } catch (Exception e) {
             e.printStackTrace();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
         }
     }
 }

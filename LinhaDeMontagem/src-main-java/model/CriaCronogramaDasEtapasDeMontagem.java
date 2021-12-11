@@ -70,7 +70,7 @@ public class CriaCronogramaDasEtapasDeMontagem {
         List<EtapaDeMontagem> etapaTurnoManha = combinacaoDeEtapasPorTurnoManha.get(i);
         for (EtapaDeMontagem etapaDeMontagem : etapaTurnoManha) {
             etapaDeMontagem.setTempoPrevisto(horaFormatada);
-            System.out.println(horaFormatada + etapaDeMontagem.getTitulo());
+            System.out.println(horaFormatada + etapaDeMontagem.getTitulo() + " " + etapaDeMontagem.getTempoDeDuracao());
 
             horaFormatada = getHoradaProximaEtapaDeMontagem(data, etapaDeMontagem.getTempoDeDuracao());
             listaDeEtapas.add(etapaDeMontagem);

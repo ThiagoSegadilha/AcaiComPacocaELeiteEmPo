@@ -1,9 +1,8 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import exceptions.ArquivoVazioException;
+
+import java.io.*;
 import java.util.ArrayList;
 
 public class CriaListaComOsDadosDoArquivo {
@@ -35,11 +34,11 @@ public class CriaListaComOsDadosDoArquivo {
         return listaDeEtapas;
     }
 
-    private void checaConteudoDoArquivo(BufferedReader buffer) throws Exception {
+    public void checaConteudoDoArquivo(BufferedReader buffer) throws IOException {
         int verificaConteudoDoArquivo = buffer.read();
         if (verificaConteudoDoArquivo == -1) {
             buffer.close();
-            throw new Exception("O arquivo está vazio.");
+            throw new ArquivoVazioException("O arquivo está vazio.");
         }
     }
 

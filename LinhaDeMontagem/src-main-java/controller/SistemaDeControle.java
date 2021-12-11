@@ -15,7 +15,7 @@ public class SistemaDeControle {
         criaCombinacoesDeEtapasDeMontagem = new CriaCombinacoesDeEtapasDeMontagem();
     }
 
-    public void tratarDadosDoArquivo(String caminhoArquivo) throws Exception {
+    public void tratarDadosDoArquivo(String caminhoArquivo) throws Throwable {
 
         List<String> listaDeEtapasDeMontagem = criaListaComOsDadosDoArquivo.criaListaDeEtapas(caminhoArquivo);
         List<EtapaDeMontagem> etapasDeMontagemLista = CriaListaDeEtapasDeMontagem.criaLinhaDeMontagem(listaDeEtapasDeMontagem);
