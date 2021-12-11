@@ -41,10 +41,8 @@ public class Main {
         SistemaDeControle sistemaDeControle = new SistemaDeControle();
         try {
             sistemaDeControle.tratarDadosDoArquivo(caminhoArquivo);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
         }
     }
 }

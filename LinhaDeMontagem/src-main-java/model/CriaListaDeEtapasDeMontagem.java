@@ -41,7 +41,6 @@ public class CriaListaDeEtapasDeMontagem {
     }
 
     private static void checaTempoENome(String tempo, String nome, String min, String manutencao) throws Exception {
-        System.out.println(nome + " " + tempo + " teste");
         if (!tempo.endsWith(min) && !tempo.endsWith(manutencao)) {
             throw new EtapaSemTempoException("A etapa atual não possui tempo");
         }

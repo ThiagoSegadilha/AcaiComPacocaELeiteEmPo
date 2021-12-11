@@ -4,6 +4,7 @@ import exceptions.ArquivoVazioException;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CriaListaComOsDadosDoArquivo {
     private ArrayList<String> listaDeEtapas;
@@ -13,33 +14,19 @@ public class CriaListaComOsDadosDoArquivo {
         listaDeEtapas = new ArrayList<String>();
 
         try {
-            FileInputStream lerArquivo = new FileInputStream(caminhoArquivo);
-            DataInputStream dadosDoAquivo = new DataInputStream(lerArquivo);
-            BufferedReader buffer = new BufferedReader(new InputStreamReader(dadosDoAquivo));
+            File arquivo = new File(caminhoArquivo);
+            Scanner lerArquivo = new Scanner(arquivo);
 
-            checaConteudoDoArquivo(buffer);
-
-            String frase = buffer.readLine();
-
-            while (frase != null) {
+            while (lerArquivo.hasNextLine()) {
+                String frase = lerArquivo.nextLine();
                 listaDeEtapas.add(frase);
-                frase = buffer.readLine();
             }
 
-            dadosDoAquivo.close();
+            lerArquivo.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return listaDeEtapas;
     }
-
-    public void checaConteudoDoArquivo(BufferedReader buffer) throws IOException {
-        int verificaConteudoDoArquivo = buffer.read();
-        if (verificaConteudoDoArquivo == -1) {
-            buffer.close();
-            throw new ArquivoVazioException("O arquivo está vazio.");
-        }
-    }
-
 }

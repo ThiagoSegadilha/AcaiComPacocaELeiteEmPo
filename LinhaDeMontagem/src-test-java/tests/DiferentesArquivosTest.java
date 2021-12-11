@@ -16,14 +16,4 @@ public class DiferentesArquivosTest {
         Main main = new Main();
         Main.checaArquivo("LinhaDeMontagem/arquivos/input123.txt");
     }
-
-    @Test(expected = ArquivoVazioException.class)
-    public void arquivoVazio() throws Throwable {
-        CriaListaComOsDadosDoArquivo criaListaComOsDadosDoArquivo = new CriaListaComOsDadosDoArquivo();
-        FileInputStream lerArquivo = new FileInputStream("LinhaDeMontagem/arquivos/inputVazio.txt");
-        DataInputStream dadosDoAquivo = new DataInputStream(lerArquivo);
-        BufferedReader buffer = new BufferedReader(new InputStreamReader(dadosDoAquivo));
-
-        criaListaComOsDadosDoArquivo.checaConteudoDoArquivo(buffer);
-    }
 }

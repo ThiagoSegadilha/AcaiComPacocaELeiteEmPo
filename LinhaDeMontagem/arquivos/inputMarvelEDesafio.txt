@@ -1,0 +1,42 @@
+Fabricar armadura do homem de ferro 60min
+Fabricar arco do gaviao arqueiro 20min
+Fabricar roupa da viuva negra 20min
+Fabricar manopla do thanos 180min
+Fabricar flechas da gaviao arqueiro 15min
+Fabricar roupa do homem aranha 30min
+Fabricar aneis do xhang chii 35min
+Braco do hulk - maintenance
+Fabricar escudo do capitão america 35min
+Fabricar roupa do homem formiga 45min
+Fabricar roupa da vespa 30min
+Fabricar braco do soldado infernal 30min
+Fabricar QG dos vigadores 100min
+Fabricar espada do blade 10min
+Fabricar armas do justiceiro 20min
+Fabricar espada do thanos 20min
+Fabricar roupa do pantera negra 20min
+Fabricar roupa do namor 15min
+Fabricar livro de magia da Wanda 40min
+Fabricar roupa do doutor estranho 20min
+Fabricar cajado do loki 20min
+Fabricar armos do dead pool 30min
+Fabricar roupa da capita marvel 20min
+Cutting of steel sheets 60min
+Austenpera (Heat treatment) 30min
+Tempering sub-zero (Heat treatment) 45min
+Safety sensor assembly 60min
+Pieces washing 45min
+Axis calibration 30min
+Steel bearing assembly 45min
+Assembly line cooling - maintenance
+Nitriding process 45min
+Injection subsystem assembly 60min
+Compliance check 30min
+Navigation subsystem assembly 60min
+Torque converter subsystem calibration 60min
+Left stabilizer bar alignment 30min
+Setup of lock and control device 45min
+Right stabilizer bar alignment 30min
+Seal installation 45min
+Application of decals 30min
+Monitoring subsystem assembly 30min
