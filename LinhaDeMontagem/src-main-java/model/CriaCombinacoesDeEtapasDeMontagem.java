@@ -60,7 +60,7 @@ public class CriaCombinacoesDeEtapasDeMontagem {
 
                 EtapaDeMontagem estapaDeMontagemAutal = etapasDeMontagemLista.get(contAuxiliar);
 
-                if (estapaDeMontagemAutal.isCombinacaoDeEtapas()) {
+                if (estapaDeMontagemAutal.isEtapaCombinada()) {
                     continue;
                 }
 
@@ -81,7 +81,7 @@ public class CriaCombinacoesDeEtapasDeMontagem {
             if (combinacaoValida) {
                 combinacaoDeEtapas.add(listaDeCombinacoes);
                 for (EtapaDeMontagem etapaDeMontagemAtual : listaDeCombinacoes) {
-                    etapaDeMontagemAtual.setCombinacaoDeEtapas(true);
+                    etapaDeMontagemAtual.setEtapaCombinada(true);
                 }
                 numeroDePossiveisCombinacoes++;
                 if (numeroDePossiveisCombinacoes == tempoTotalPorDia) {
