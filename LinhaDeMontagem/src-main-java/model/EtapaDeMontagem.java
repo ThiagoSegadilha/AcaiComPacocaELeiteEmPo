@@ -3,7 +3,7 @@ package model;
 public class EtapaDeMontagem implements Comparable<Object>{
     String titulo, nome, tempoPrevisto;
     int tempoDeDuracao;
-    boolean previsao = false;
+    boolean combinacaoDeEtapas = false;
 
     public EtapaDeMontagem(String titulo, String nome, int tempo) {
         this.titulo = titulo;
@@ -31,10 +31,10 @@ public class EtapaDeMontagem implements Comparable<Object>{
         return tempoDeDuracao;
     }
 
-    public boolean isPrevisao() { return previsao; }
+    public boolean isCombinacaoDeEtapas() { return combinacaoDeEtapas; }
 
-    public void setPrevisao(boolean previsao) {
-        this.previsao = previsao;
+    public void setCombinacaoDeEtapas(boolean combinacaoDeEtapas) {
+        this.combinacaoDeEtapas = combinacaoDeEtapas;
     }
 
     @Override // Ordenação por tempo de duração de cada etapa

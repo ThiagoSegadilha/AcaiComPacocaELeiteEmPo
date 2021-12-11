@@ -4,7 +4,6 @@ import model.CriaEtapasDeMontagem;
 import model.EtapaDeMontagem;
 import model.ListaDeEtapas;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -63,14 +62,19 @@ public class SistemaDeControle {
             int auxiliar = i;
             int tempoTotal = 0;
             List<EtapaDeMontagem> listaDeCombinacoes = new ArrayList<EtapaDeMontagem>();
+            boolean combinacaoValida = false;
 
             while (auxiliar != numeroDeEtapas) {
                 int contAuxiliar = auxiliar;
                 auxiliar++;
 
                 EtapaDeMontagem estapaDeMontagemAutal = etapasDeMontagemLista.get(contAuxiliar);
-                int tempoDaEtapaAtual = estapaDeMontagemAutal.getTempoDeDuracao();
 
+                if (estapaDeMontagemAutal.isCombinacaoDeEtapas()) {
+                    continue;
+                }
+
+                int tempoDaEtapaAtual = estapaDeMontagemAutal.getTempoDeDuracao();
                 if (tempoDaEtapaAtual + tempoTotal > TEMPO_TURNO_MANHA) {
                     continue;
                 }
@@ -78,19 +82,25 @@ public class SistemaDeControle {
                 listaDeCombinacoes.add(estapaDeMontagemAutal);
                 tempoTotal += tempoDaEtapaAtual;
 
-                if (tempoTotal == TEMPO_TURNO_MANHA) {
-                    break;
-                } else if (tempoTotal >= TEMPO_TURNO_MANHA) {
+                if (tempoTotal >= TEMPO_TURNO_MANHA) {
+                    System.out.println("Testando para ver se esta chegando aqui");
                     break;
                 }
-
             }
 
-            for (int j = 0; j < listaDeCombinacoes.size(); j++) {
-                System.out.println("\nTeste " + j);
-                System.out.println(listaDeCombinacoes.get(j).getNome() + listaDeCombinacoes.get(j).getTempoDeDuracao());
+            combinacaoValida = tempoTotal == TEMPO_TURNO_MANHA;
+            if (combinacaoValida) {
+                combinacaoDeEtapas.add(listaDeCombinacoes);
+                for (EtapaDeMontagem etapaDeMontagemAtual : listaDeCombinacoes) {
+                    etapaDeMontagemAtual.setCombinacaoDeEtapas(true);
+                    System.out.println("\nTeste ");
+                    System.out.println(etapaDeMontagemAtual.getNome() + " " + etapaDeMontagemAtual.getTempoDeDuracao());
+                }
+                numeroDePossiveisCombinacoes++;
+                if (numeroDePossiveisCombinacoes == tempoTotalPorDia) {
+                    break;
+                }
             }
-
         }
 
     }
