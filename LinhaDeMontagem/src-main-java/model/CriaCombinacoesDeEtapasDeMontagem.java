@@ -7,6 +7,7 @@ import java.util.List;
 public class CriaCombinacoesDeEtapasDeMontagem {
 
     private List<List<EtapaDeMontagem>> combinacaoDeEtapasTurnoManha;
+    private List<List<EtapaDeMontagem>> combinacaoDeEtapasTurnoTarde;
 
     public void cronogramaDeMontagem(List<EtapaDeMontagem> etapasDeMontagemLista) {
         int TEMPO_TOTAL_DO_DIA = 360;
@@ -28,6 +29,14 @@ public class CriaCombinacoesDeEtapasDeMontagem {
             System.out.println("\nTeste 2");
             System.out.println(etapaDeMontagemAtual.getNome() + " " + etapaDeMontagemAtual.getTempoDeDuracao());
         }
+        combinacaoDeEtapasTurnoTarde = combinacoesTurnoTarde(etapasDeMontagemLista, tempoTotalPorDia);
+
+        removeEtapasDaListaDeMontagem(combinacaoDeEtapasTurnoTarde, etapasDeMontagemLista);
+
+        for (EtapaDeMontagem etapaDeMontagemAtual : etapasDeMontagemLista) {
+            System.out.println("\nTeste 3");
+            System.out.println(etapaDeMontagemAtual.getNome() + " " + etapaDeMontagemAtual.getTempoDeDuracao());
+        }
     }
 
     public static int getTempoTotalDasEtapas(List<EtapaDeMontagem> etapasDeMontagemLista) {
@@ -44,19 +53,54 @@ public class CriaCombinacoesDeEtapasDeMontagem {
 
     public List<List<EtapaDeMontagem>> combinacoesTurnoManha(List<EtapaDeMontagem> etapasDeMontagemLista, int tempoTotalPorDia) {
         int TEMPO_TURNO_MANHA = 180;
-        int numeroDeEtapas = etapasDeMontagemLista.size();
+        int numeroDeEtapasA = etapasDeMontagemLista.size();
         List<List<EtapaDeMontagem>> combinacaoDeEtapas = new ArrayList<List<EtapaDeMontagem>>();
         int numeroDePossiveisCombinacoes = 0;
 
-        for (int i = 0; i < numeroDeEtapas; i++) {
+        for (int i = 0; i < numeroDeEtapasA; i++) {
             int auxiliar = i;
             int tempoTotal = 0;
             List<EtapaDeMontagem> listaDeCombinacoes = new ArrayList<EtapaDeMontagem>();
             boolean combinacaoValida = false;
 
-            tempoTotal = getTempoTotalDaCominacaoTurnoManha(etapasDeMontagemLista, TEMPO_TURNO_MANHA, numeroDeEtapas, auxiliar, tempoTotal, listaDeCombinacoes);
+            tempoTotal = getTempoTotalDaCominacaoTurnoManha(etapasDeMontagemLista, TEMPO_TURNO_MANHA, numeroDeEtapasA, auxiliar, tempoTotal, listaDeCombinacoes);
 
-            combinacaoValida = tempoTotal == TEMPO_TURNO_MANHA;
+            combinacaoValida = tempoTotal <= TEMPO_TURNO_MANHA;
+            if (combinacaoValida) {
+                combinacaoDeEtapas.add(listaDeCombinacoes);
+                for (EtapaDeMontagem etapaDeMontagemAtual : listaDeCombinacoes) {
+                    etapaDeMontagemAtual.setEtapaCombinada(true);
+                }
+                numeroDePossiveisCombinacoes++;
+                if (numeroDePossiveisCombinacoes == tempoTotalPorDia) {
+                    break;
+                }
+            }
+        }
+        for (List<EtapaDeMontagem> etapaDeMontagemAtual : combinacaoDeEtapas) {
+            for (EtapaDeMontagem etapaAtual : etapaDeMontagemAtual) {
+                System.out.println("\nTeste ");
+                System.out.println(etapaAtual.getNome() + " " + etapaAtual.getTempoDeDuracao());
+            }
+        }
+        return combinacaoDeEtapas;
+    }
+
+    private List<List<EtapaDeMontagem>> combinacoesTurnoTarde(List<EtapaDeMontagem> etapasDeMontagemListaParaTarde, int tempoTotalPorDia) {
+        int TEMPO_TURNO_TARDE = 240;
+        int numeroDeEtapasB = etapasDeMontagemListaParaTarde.size();
+        List<List<EtapaDeMontagem>> combinacaoDeEtapas = new ArrayList<List<EtapaDeMontagem>>();
+        int numeroDePossiveisCombinacoes = 0;
+
+        for (int j = 0; j < numeroDeEtapasB; j++) {
+            int auxiliar = j;
+            int tempoTotal = 0;
+            List<EtapaDeMontagem> listaDeCombinacoes = new ArrayList<EtapaDeMontagem>();
+            boolean combinacaoValida = false;
+
+            tempoTotal = getTempoTotalDaCominacaoTurnoTarde(etapasDeMontagemListaParaTarde, TEMPO_TURNO_TARDE, numeroDeEtapasB, auxiliar, tempoTotal, listaDeCombinacoes);
+
+            combinacaoValida = tempoTotal <= TEMPO_TURNO_TARDE;
             if (combinacaoValida) {
                 combinacaoDeEtapas.add(listaDeCombinacoes);
                 for (EtapaDeMontagem etapaDeMontagemAtual : listaDeCombinacoes) {
@@ -97,6 +141,32 @@ public class CriaCombinacoesDeEtapasDeMontagem {
             tempoTotal += tempoDaEtapaAtual;
 
             if (tempoTotal >= TEMPO_TURNO_MANHA) {
+                break;
+            }
+        }
+        return tempoTotal;
+    }
+
+    private int getTempoTotalDaCominacaoTurnoTarde(List<EtapaDeMontagem> etapasDeMontagemListaParaTarde, int TEMPO_TURNO_TARDE, int numeroDeEtapasB, int auxiliar, int tempoTotal, List<EtapaDeMontagem> listaDeCombinacoes) {
+        while (auxiliar != numeroDeEtapasB) {
+            int contAuxiliar = auxiliar;
+            auxiliar++;
+
+            EtapaDeMontagem estapaDeMontagemAutal = etapasDeMontagemListaParaTarde.get(contAuxiliar);
+
+            if (estapaDeMontagemAutal.isEtapaCombinada()) {
+                continue;
+            }
+
+            int tempoDaEtapaAtual = estapaDeMontagemAutal.getTempoDeDuracao();
+            if (tempoDaEtapaAtual + tempoTotal > TEMPO_TURNO_TARDE) {
+                continue;
+            }
+
+            listaDeCombinacoes.add(estapaDeMontagemAutal);
+            tempoTotal += tempoDaEtapaAtual;
+
+            if (tempoTotal >= TEMPO_TURNO_TARDE) {
                 break;
             }
         }
