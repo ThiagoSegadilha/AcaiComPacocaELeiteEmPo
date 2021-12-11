@@ -25,9 +25,10 @@ public class SistemaDeControle {
         List<String> listaDeEtapasDeMontagem = listaDeEtapas.criaListaDeEtapas(caminhoArquivo);
         List<EtapaDeMontagem> etapasDeMontagemLista = CriaListaDeEtapasDeMontagem.criaLinhaDeMontagem(listaDeEtapasDeMontagem);
 
-        List<List<EtapaDeMontagem>> listaDeCombinacoesDasEtapasDeMontagem = criaCombinacoesDeEtapasDeMontagem.cronogramaDeMontagem(etapasDeMontagemLista);
+//        List<List<EtapaDeMontagem>> listaDeCombinacoesDasEtapasDeMontagem = criaCombinacoesDeEtapasDeMontagem.cronogramaDeMontagem(etapasDeMontagemLista);
 
-        criaCronogramaDasEtapasDeMontagem(listaDeCombinacoesDasEtapasDeMontagem);
+        criaCombinacoesDeEtapasDeMontagem.cronogramaDeMontagem(etapasDeMontagemLista);
+//        criaCronogramaDasEtapasDeMontagem(listaDeCombinacoesDasEtapasDeMontagem);
     }
 
     private void criaCronogramaDasEtapasDeMontagem(List<List<EtapaDeMontagem>> listaDeCombinacoesDasEtapasDeMontagem) {

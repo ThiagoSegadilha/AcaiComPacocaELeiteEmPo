@@ -6,9 +6,10 @@ import java.util.List;
 
 public class CriaCombinacoesDeEtapasDeMontagem {
 
-    private List<List<EtapaDeMontagem>> combinacaoDeEtapasPorTurno;
+    private List<List<EtapaDeMontagem>> combinacaoDeEtapasPorTurnoManha;
+    private List<List<EtapaDeMontagem>> combinacaoDeEtapasPorTurnoTarde;
 
-    public List<List<EtapaDeMontagem>> cronogramaDeMontagem(List<EtapaDeMontagem> etapasDeMontagemLista) {
+    public void cronogramaDeMontagem(List<EtapaDeMontagem> etapasDeMontagemLista) {
         int TEMPO_TOTAL_DO_DIA = 360;
         int TEMPO_TURNO_MANHA = 180;
         int TEMPO_TURNO_TARDE = 240;
@@ -18,19 +19,29 @@ public class CriaCombinacoesDeEtapasDeMontagem {
         // Necessario implementar o Comparable<Object> na classe EtapaDeMontagem para realizar a ordenação
         Collections.sort(etapasDeMontagemLista);
 
-        for (EtapaDeMontagem etapa : etapasDeMontagemLista) {
-            System.out.println(etapa.getNome() + " " + etapa.getTempoDeDuracao());
+        combinacaoDeEtapasPorTurnoManha = combinacoesPorTurno(etapasDeMontagemLista, tempoTotalPorDia, TEMPO_TURNO_MANHA);
+
+        removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurnoManha, etapasDeMontagemLista);
+
+        combinacaoDeEtapasPorTurnoTarde = combinacoesPorTurno(etapasDeMontagemLista, tempoTotalPorDia, TEMPO_TURNO_TARDE);
+
+        removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurnoTarde, etapasDeMontagemLista);
+
+        for (List<EtapaDeMontagem> etapas : combinacaoDeEtapasPorTurnoManha) {
+            for (EtapaDeMontagem etapa : etapas) {
+                System.out.println(etapa.getNome() + " " + etapa.getTempoDeDuracao());
+            }
         }
+        System.out.println("\n");
 
-        combinacaoDeEtapasPorTurno = combinacoesPorTurno(etapasDeMontagemLista, tempoTotalPorDia, TEMPO_TURNO_MANHA);
+        for (List<EtapaDeMontagem> etapas : combinacaoDeEtapasPorTurnoTarde) {
+            for (EtapaDeMontagem etapa : etapas) {
+                System.out.println(etapa.getNome() + " " + etapa.getTempoDeDuracao());
+            }
+        }
+        System.out.println("\n");
 
-        removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurno, etapasDeMontagemLista);
-
-        combinacaoDeEtapasPorTurno = combinacoesPorTurno(etapasDeMontagemLista, tempoTotalPorDia, TEMPO_TURNO_TARDE);
-
-        removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurno, etapasDeMontagemLista);
-
-        return combinacaoDeEtapasPorTurno;
+//        return combinacaoDeEtapasPorTurno;
     }
 
     public static int getTempoTotalDasEtapas(List<EtapaDeMontagem> etapasDeMontagemLista) {
@@ -69,12 +80,6 @@ public class CriaCombinacoesDeEtapasDeMontagem {
                 if (numeroDePossiveisCombinacoes == TEMPO_TOTAL_DO_DIA) {
                     break;
                 }
-            }
-        }
-        for (List<EtapaDeMontagem> etapaDeMontagemAtual : combinacaoDeEtapas) {
-            for (EtapaDeMontagem etapaAtual : etapaDeMontagemAtual) {
-                System.out.println("\nTeste ");
-                System.out.println(etapaAtual.getNome() + " " + etapaAtual.getTempoDeDuracao());
             }
         }
         return combinacaoDeEtapas;
