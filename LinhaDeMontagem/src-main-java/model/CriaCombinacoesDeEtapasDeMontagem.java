@@ -1,5 +1,7 @@
 package model;
 
+import controller.SistemaDeControle;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,6 +10,11 @@ public class CriaCombinacoesDeEtapasDeMontagem {
 
     private List<List<EtapaDeMontagem>> combinacaoDeEtapasPorTurnoManha;
     private List<List<EtapaDeMontagem>> combinacaoDeEtapasPorTurnoTarde;
+    private CriaCronogramaDasEtapasDeMontagem criaCronogramaDasEtapasDeMontagem;
+
+    public CriaCombinacoesDeEtapasDeMontagem() {
+        criaCronogramaDasEtapasDeMontagem = new CriaCronogramaDasEtapasDeMontagem();
+    }
 
     public void cronogramaDeMontagem(List<EtapaDeMontagem> etapasDeMontagemLista) {
         int TEMPO_TOTAL_DO_DIA = 360;
@@ -41,6 +48,7 @@ public class CriaCombinacoesDeEtapasDeMontagem {
         }
         System.out.println("\n");
 
+        criaCronogramaDasEtapasDeMontagem.criaCronogramaDasEtapasDeMontagem(combinacaoDeEtapasPorTurnoManha, combinacaoDeEtapasPorTurnoTarde);
 //        return combinacaoDeEtapasPorTurno;
     }
 
