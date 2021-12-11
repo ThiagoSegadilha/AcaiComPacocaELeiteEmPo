@@ -8,7 +8,7 @@ public class CriaCombinacoesDeEtapasDeMontagem {
 
     private List<List<EtapaDeMontagem>> combinacaoDeEtapasPorTurno;
 
-    public void cronogramaDeMontagem(List<EtapaDeMontagem> etapasDeMontagemLista) {
+    public List<List<EtapaDeMontagem>> cronogramaDeMontagem(List<EtapaDeMontagem> etapasDeMontagemLista) {
         int TEMPO_TOTAL_DO_DIA = 360;
         int TEMPO_TURNO_MANHA = 180;
         int TEMPO_TURNO_TARDE = 240;
@@ -26,18 +26,11 @@ public class CriaCombinacoesDeEtapasDeMontagem {
 
         removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurno, etapasDeMontagemLista);
 
-        for (EtapaDeMontagem etapaDeMontagemAtual : etapasDeMontagemLista) {
-            System.out.println("\nTeste 2");
-            System.out.println(etapaDeMontagemAtual.getNome() + " " + etapaDeMontagemAtual.getTempoDeDuracao());
-        }
         combinacaoDeEtapasPorTurno = combinacoesPorTurno(etapasDeMontagemLista, tempoTotalPorDia, TEMPO_TURNO_TARDE);
 
         removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurno, etapasDeMontagemLista);
 
-        for (EtapaDeMontagem etapaDeMontagemAtual : etapasDeMontagemLista) {
-            System.out.println("\nTeste 3");
-            System.out.println(etapaDeMontagemAtual.getNome() + " " + etapaDeMontagemAtual.getTempoDeDuracao());
-        }
+        return combinacaoDeEtapasPorTurno;
     }
 
     public static int getTempoTotalDasEtapas(List<EtapaDeMontagem> etapasDeMontagemLista) {
