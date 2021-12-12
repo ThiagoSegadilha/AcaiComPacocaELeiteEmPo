@@ -24,13 +24,16 @@ public class CriaCombinacoesDeEtapasDeMontagem {
         int tempoTotalPorDia = tempoTotalDasEtapas / TEMPO_TOTAL_DO_DIA;
 
         // Necessario implementar o Comparable<Object> na classe EtapaDeMontagem para realizar a ordenação
-        Collections.sort(etapasDeMontagemLista);
+        List<EtapaDeMontagem> etapasDeMontagemListaAuxiliar = new ArrayList<EtapaDeMontagem>();
+        etapasDeMontagemListaAuxiliar.addAll(etapasDeMontagemLista);
+        Collections.sort(etapasDeMontagemListaAuxiliar);
 
-        combinacaoDeEtapasPorTurnoManha = combinacoesPorTurno(etapasDeMontagemLista, tempoTotalPorDia, TEMPO_TURNO_MANHA, true);
-        removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurnoManha, etapasDeMontagemLista);
 
-        combinacaoDeEtapasPorTurnoTarde = combinacoesPorTurno(etapasDeMontagemLista, tempoTotalPorDia, TEMPO_TURNO_TARDE, false);
-        removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurnoTarde, etapasDeMontagemLista);
+        combinacaoDeEtapasPorTurnoManha = combinacoesPorTurno(etapasDeMontagemListaAuxiliar, tempoTotalPorDia, TEMPO_TURNO_MANHA, true);
+        removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurnoManha, etapasDeMontagemListaAuxiliar);
+
+        combinacaoDeEtapasPorTurnoTarde = combinacoesPorTurno(etapasDeMontagemListaAuxiliar, tempoTotalPorDia, TEMPO_TURNO_TARDE, false);
+        removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurnoTarde, etapasDeMontagemListaAuxiliar);
 
         criaCronogramaDasEtapasDeMontagem.criaCronogramaDasEtapasDeMontagem(combinacaoDeEtapasPorTurnoManha, combinacaoDeEtapasPorTurnoTarde);
     }
@@ -47,9 +50,15 @@ public class CriaCombinacoesDeEtapasDeMontagem {
         return tempoTotal;
     }
 
-    public List<List<EtapaDeMontagem>> combinacoesPorTurno(List<EtapaDeMontagem> etapasDeMontagemLista, int TEMPO_TOTAL_DO_DIA, int TEMPO_DO_TURNO, boolean isManha) {
+    public List<List<EtapaDeMontagem>> combinacoesPorTurno(List<EtapaDeMontagem> etapasDeMontagemLista, int TEMPO_TOTAL_POR_DIA, int TEMPO_DO_TURNO,
+                                                           boolean isManha) {
 
+
+//        for (EtapaDeMontagem estapa : etapasDeMontagemLista) {
+//            System.out.println(estapa.getTitulo());
+//        }
         int numeroDeEtapas = etapasDeMontagemLista.size();
+
         List<List<EtapaDeMontagem>> combinacaoDeEtapas = new ArrayList<List<EtapaDeMontagem>>();
         int numeroDePossiveisCombinacoes = 0;
 
@@ -73,7 +82,7 @@ public class CriaCombinacoesDeEtapasDeMontagem {
                     etapaDeMontagemAtual.setEtapaCombinada(true);
                 }
                 numeroDePossiveisCombinacoes++;
-                if (numeroDePossiveisCombinacoes == TEMPO_TOTAL_DO_DIA) {
+                if (numeroDePossiveisCombinacoes == TEMPO_TOTAL_POR_DIA) {
                     break;
                 }
             }
@@ -81,18 +90,23 @@ public class CriaCombinacoesDeEtapasDeMontagem {
         return combinacaoDeEtapas;
     }
 
-    private int getTempoTotalDaCominacaoPorTurno(List<EtapaDeMontagem> etapasDeMontagemLista, int TEMPO_POR_TURNO, int numeroDeEtapas, int auxiliar, int tempoTotal, List<EtapaDeMontagem> listaDeCombinacoes) {
+    private int getTempoTotalDaCominacaoPorTurno(List<EtapaDeMontagem> etapasDeMontagemLista, int TEMPO_POR_TURNO, int numeroDeEtapas, int auxiliar,
+                                                 int tempoTotal, List<EtapaDeMontagem> listaDeCombinacoes) {
         while (auxiliar != numeroDeEtapas) {
             int contAuxiliar = auxiliar;
             auxiliar++;
 
             EtapaDeMontagem estapaDeMontagemAutal = etapasDeMontagemLista.get(contAuxiliar);
+//            System.out.println("TESTE THISE " + estapaDeMontagemAutal.getTitulo());
 
             if (estapaDeMontagemAutal.isEtapaCombinada()) {
                 continue;
             }
 
             int tempoDaEtapaAtual = estapaDeMontagemAutal.getTempoDeDuracao();
+
+//            System.out.println("Tempo do turno da tarde " + TEMPO_POR_TURNO + " " + contAuxiliar);
+
             if (tempoDaEtapaAtual + tempoTotal > TEMPO_POR_TURNO) {
                 continue;
             }
@@ -100,7 +114,11 @@ public class CriaCombinacoesDeEtapasDeMontagem {
             listaDeCombinacoes.add(estapaDeMontagemAutal);
             tempoTotal += tempoDaEtapaAtual;
 
-            if (tempoTotal >= TEMPO_POR_TURNO) {
+            if (TEMPO_POR_TURNO == 180) {
+                if (tempoTotal == TEMPO_POR_TURNO) {
+                    break;
+                }
+            } else if (tempoTotal >= 180) {
                 break;
             }
         }
