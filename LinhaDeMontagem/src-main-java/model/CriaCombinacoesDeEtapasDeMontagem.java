@@ -24,16 +24,14 @@ public class CriaCombinacoesDeEtapasDeMontagem {
         int tempoTotalPorDia = tempoTotalDasEtapas / TEMPO_TOTAL_DO_DIA;
 
         // Necessario implementar o Comparable<Object> na classe EtapaDeMontagem para realizar a ordenação
-        List<EtapaDeMontagem> etapasDeMontagemListaAuxiliar = new ArrayList<EtapaDeMontagem>();
-        etapasDeMontagemListaAuxiliar.addAll(etapasDeMontagemLista);
-        Collections.sort(etapasDeMontagemListaAuxiliar);
+        Collections.sort(etapasDeMontagemLista);
 
 
-        combinacaoDeEtapasPorTurnoManha = combinacoesPorTurno(etapasDeMontagemListaAuxiliar, tempoTotalPorDia, TEMPO_TURNO_MANHA, true);
-        removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurnoManha, etapasDeMontagemListaAuxiliar);
+        combinacaoDeEtapasPorTurnoManha = combinacoesPorTurno(etapasDeMontagemLista, tempoTotalPorDia, TEMPO_TURNO_MANHA, true);
+        removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurnoManha, etapasDeMontagemLista);
 
-        combinacaoDeEtapasPorTurnoTarde = combinacoesPorTurno(etapasDeMontagemListaAuxiliar, tempoTotalPorDia, TEMPO_TURNO_TARDE, false);
-        removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurnoTarde, etapasDeMontagemListaAuxiliar);
+        combinacaoDeEtapasPorTurnoTarde = combinacoesPorTurno(etapasDeMontagemLista, tempoTotalPorDia, TEMPO_TURNO_TARDE, false);
+        removeEtapasDaListaDeMontagem(combinacaoDeEtapasPorTurnoTarde, etapasDeMontagemLista);
 
         criaCronogramaDasEtapasDeMontagem.criaCronogramaDasEtapasDeMontagem(combinacaoDeEtapasPorTurnoManha, combinacaoDeEtapasPorTurnoTarde);
     }
